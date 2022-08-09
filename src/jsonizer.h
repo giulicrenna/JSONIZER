@@ -73,22 +73,24 @@ class JSONIZER{
         PD: toJSON means ToStringJson*/
         std::string toSJSON(std::vector<std::string> myVector){  
             std::string launcher = "{";
-            bool doEnd = true;
-             
-            int capacity = myVector.size();
-            for(int i = 1; i <= capacity; i++){
-                float evenOdd = i % 2;
-                if(evenOdd != 0 && doEnd == true){ //par
-                    launcher += "\"" + myVector.at(i-1) + "\"" + ":";
-                    doEnd = false;
-                }else if(evenOdd == 0 && doEnd == false && i != capacity){ //impar
-                    launcher += "\"" + myVector.at(i-1) + "\", ";
-                    doEnd = true;
-                }else{
-                    launcher += "\"" + myVector.at(i-1) + "\"}";
+            if(myVector.empty()){return "{}";}else{
+                bool doEnd = true;
+                
+                int capacity = myVector.size();
+                for(int i = 1; i <= capacity; i++){
+                    float evenOdd = i % 2;
+                    if(evenOdd != 0 && doEnd == true){ //par
+                        launcher += "\"" + myVector.at(i-1) + "\"" + ":";
+                        doEnd = false;
+                    }else if(evenOdd == 0 && doEnd == false && i != capacity){ //impar
+                        launcher += "\"" + myVector.at(i-1) + "\", ";
+                        doEnd = true;
+                    }else{
+                        launcher += "\"" + myVector.at(i-1) + "\"}";
+                    }
                 }
+                return launcher;
             }
-            return launcher;
         }
 };
 
